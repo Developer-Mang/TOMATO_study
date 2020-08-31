@@ -74,7 +74,7 @@ const filterTodos = (_todos) =>
 
 const getDayTodos = () => {
   const _todos = todos.filter((todo) =>
-    goals.find((goal) => goal.id === todo.goal)
+    goals.find((goal) => goal.id === todo.goalId)
   );
   dayTodos = $selectDate.value === "" ? getToday(_todos) : filterTodos(_todos);
 };
@@ -96,7 +96,7 @@ const renderSche = () => {
     <div id="${todo.id}" class="todo ${todo.color}" style="height: ${
       getTimeCal(todo.goalTime) + 1
     }px; top: ${(todo.startTime[3] % 3) * 10 - 1}px;">
-    <h4>${getGoalContent(todo.goal)}</h4>
+    <h4>${getGoalContent(todo.goalId)}</h4>
     <p>${todo.content}</p>
     </div>`;
   });
@@ -160,11 +160,11 @@ const setGoals = (todo) => {
   const $selectGoals = document.querySelector(
     ".editShecTodo .addInput .category select"
   );
-  let html = `<option value="${todo.goal}">${
-    goals.find((goal) => goal.id === +todo.goal).content
+  let html = `<option value="${todo.goalId}">${
+    goals.find((goal) => goal.id === +todo.goalId).content
   }</option>`;
   goals.forEach((goal) => {
-    if (goal.id === todo.goal) return;
+    if (goal.id === todo.goalId) return;
     html += `<option value="${goal.id}">${goal.content}</option>`;
   });
   $selectGoals.innerHTML = html;
